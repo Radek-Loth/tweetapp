@@ -1,0 +1,1 @@
+INSERT INTO tweet(id, title, content) VALUES (1, 'Test post 1', 'Post content 1');
