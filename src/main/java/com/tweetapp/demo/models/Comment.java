@@ -1,4 +1,4 @@
-package models;
+package com.tweetapp.demo.models;
 
 import lombok.Getter;
 import lombok.Setter;

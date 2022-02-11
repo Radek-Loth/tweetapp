@@ -1,5 +1,7 @@
 package com.tweetapp.demo;
 
+import com.tweetapp.demo.models.Tweet;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -15,6 +17,12 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
+
+        /*
+        for(Tweet data : tweets){
+            System.out.println(data.toString());
+        }
+        */
 
         while(true){
 

@@ -1,9 +1,8 @@
 package com.tweetapp.demo.controllers;
 
+import com.tweetapp.demo.models.Tweet;
 import com.tweetapp.demo.services.TweetService;
 import lombok.RequiredArgsConstructor;
-import models.Tweet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,4 +1,4 @@
-package models;
+package com.tweetapp.demo.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class Tweet {
     @Id
-    private Long id;
+    private long id;
     private String title;
     private String content;
     private LocalDateTime created;
