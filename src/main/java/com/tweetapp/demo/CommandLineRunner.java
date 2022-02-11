@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 @Component
 public class CommandLineRunner implements org.springframework.boot.CommandLineRunner {
+
     @Override
     public void run(String... args) throws Exception {
         boolean isLoggedIn = false;
@@ -18,13 +19,12 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
         while(true){
 
             if(isLoggedIn == false){
-                System.out.println(" 1. Register \n 2. Login \n 3. Forgot Password");
+                System.out.println(" 1. Register \n 2. Login \n 3. Forgot Password \n");
             }
             else if(isLoggedIn == false){
-                System.out.println(" 1. Post a tweet \n 2. View my tweets \n 3. View all tweets \n 4. View all users \n 5. Reset password \n 6. Logout");
+                System.out.println(" 1. Post a tweet \n 2. View my tweets \n 3. View all tweets \n 4. View all users \n 5. Reset password \n 6. Logout \n");
             }
             selectedOption = reader.readLine();
         }
-
     }
 }
