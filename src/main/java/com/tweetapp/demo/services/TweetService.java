@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TweetService {
+public class TweetService implements ITweetService{
 
     private final TweetRepository tweetRepository;
 

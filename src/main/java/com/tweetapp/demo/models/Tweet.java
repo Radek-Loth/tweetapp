@@ -19,4 +19,14 @@ public class Tweet {
     @OneToMany
     @JoinColumn(name = "tweet_id")
     private List<Comment> comment;
+
+    @Override
+    public String toString() {
+        return "Tweet{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", created=" + created +
+                '}';
+    }
 }
