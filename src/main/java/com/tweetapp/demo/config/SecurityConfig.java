@@ -1,4 +1,5 @@
 package com.tweetapp.demo.config;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,12 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .withDefaultSchema()
-                .dataSource(dataSource)
-                .withUser("test")
-                .password("{bcrypt}" + new BCryptPasswordEncoder().encode("test"))
-                .roles("USER");
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Override
@@ -51,10 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/v3/api-docs").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/swagger-ui/index.html").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
