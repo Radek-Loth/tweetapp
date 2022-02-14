@@ -1,9 +1,9 @@
 package com.tweetapp.demo;
 
+import com.tweetapp.demo.controllers.LoginController;
 import com.tweetapp.demo.controllers.TweetController;
 import com.tweetapp.demo.models.Tweet;
-import com.tweetapp.demo.repos.TweetRepository;
-import com.tweetapp.demo.services.TweetService;
+import com.tweetapp.demo.services.ApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,23 +15,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommandLineRunner implements org.springframework.boot.CommandLineRunner {
 
-    private final TweetController tweetController;
+    private final ApiService apiService;
     private boolean isLoggedIn = false;
-    List<Tweet> tweets;
 
     @Override
     public void run(String... args) throws Exception {
 
-        tweets = tweetController.getTweets();
-
-        for(Tweet tweet: tweets){
-            System.out.println(tweet.toString());
-        }
-
         String selectedOption;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(System.in));
+        System.out.println(apiService.getTweets());
 
         while(true){
 
