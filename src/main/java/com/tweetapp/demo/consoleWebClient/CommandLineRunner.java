@@ -1,21 +1,16 @@
-package com.tweetapp.demo;
+package com.tweetapp.demo.consoleWebClient;
 
-import com.tweetapp.demo.controllers.LoginController;
-import com.tweetapp.demo.controllers.TweetController;
-import com.tweetapp.demo.models.Tweet;
-import com.tweetapp.demo.services.ApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class CommandLineRunner implements org.springframework.boot.CommandLineRunner {
 
-    private final ApiService apiService;
+    private final ApiClient apiClient;
     private boolean isLoggedIn = false;
 
     @Override
@@ -24,7 +19,8 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
         String selectedOption;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println(apiService.getTweets());
+        System.out.println(apiClient.getTweets());
+        System.out.println(apiClient.login());
 
         while(true){
 
