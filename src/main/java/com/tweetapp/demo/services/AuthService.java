@@ -22,10 +22,6 @@ public class AuthService {
     @Autowired
     AuthorityRepository authorityRepository;
 
-    public boolean emailExist(UserDto user) {
-        return userRepository.findByEmail(user.getEmail()) != null;
-    }
-
     public boolean usernameExist(UserDto user) {
         return userRepository.findByUsername(user.getUsername()) != null;
     }
@@ -34,11 +30,8 @@ public class AuthService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         User user = new User();
-        user.setFirstName(accountDto.getFirstName());
-        user.setLastName(accountDto.getLastName());
-        user.setUsername(accountDto.getUsername());
         user.setPassword("{bcrypt}" + passwordEncoder.encode(accountDto.getPassword()));
-        user.setEmail(accountDto.getEmail());
+        user.setUsername(accountDto.getUsername());
         user.setEnabled(true);
 
         Authority authority = new Authority();

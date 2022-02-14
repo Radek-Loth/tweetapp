@@ -5,6 +5,7 @@ CREATE TABLE comment
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     tweet_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
     content VARCHAR(2000) NULL,
     created TIMESTAMP
 );

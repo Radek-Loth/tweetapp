@@ -27,11 +27,9 @@ public class LoginController {
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> processRegister(@RequestBody UserDto accountDto) {
 
-        if (authService.emailExist(accountDto)) {
-            return new ResponseEntity<>("{\n" + "  \"message\" : \"EMAIL_EXISTS\"\n" + "}\n", HttpStatus.BAD_REQUEST);
-        } else if (authService.usernameExist(accountDto)) {
+        if (authService.usernameExist(accountDto)) {
             return new ResponseEntity<>("{\n" + "  \"message\" : \"USERNAME_EXISTS\"\n" + "}\n", HttpStatus.BAD_REQUEST);
-        } else if (!authService.emailExist(accountDto) || !authService.usernameExist(accountDto)) {
+        } else if (authService.usernameExist(accountDto)) {
             authService.register(accountDto);
             return new ResponseEntity<>("{\n" + "  \"message\" : \"REGISTER_SUCCESS\"\n" + "}\n", HttpStatus.CREATED);
         } else {

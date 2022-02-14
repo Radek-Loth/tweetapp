@@ -1,7 +1,6 @@
 package com.tweetapp.demo.consoleWebClient;
 
 import com.tweetapp.demo.config.LoginCredentials;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +16,7 @@ public class ApiClient {
     }
 
     public String login(){
-        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(URL + "login", new LoginCredentials("test", "test"), String.class);
+        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(URL + "login", new LoginCredentials("test@test.com", "test"), String.class);
         return String.valueOf(stringResponseEntity.getHeaders().get("Authorization"));
     }
 }

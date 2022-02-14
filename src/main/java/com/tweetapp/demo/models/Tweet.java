@@ -12,21 +12,14 @@ import java.util.List;
 @Setter
 public class Tweet {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private long author_id;
     private String title;
     private String content;
     private LocalDateTime created;
-    @OneToMany
-    @JoinColumn(name = "tweet_id")
-    private List<Comment> comment;
 
-    @Override
-    public String toString() {
-        return "Tweet{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", created=" + created +
-                '}';
-    }
+    @OneToMany
+    @JoinColumn(name = "tweet_id", updatable = false, insertable = false)
+    private List<Comment> comment;
 }
