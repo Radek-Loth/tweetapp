@@ -37,7 +37,7 @@ public class LoginController {
 
     @PostMapping(value = "/resetPassword")
     public String resetPassword(@RequestBody LoginCredentials credentials) {
-        return authService.register(credentials).toString();
+        return authService.resetPassword(credentials).toString();
     }
 
 

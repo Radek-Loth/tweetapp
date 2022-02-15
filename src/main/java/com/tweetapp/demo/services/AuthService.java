@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,11 +46,9 @@ public class AuthService {
         return user;
     }
 
-    public User resetPassword(LoginCredentials credentials){
-        User user = userRepository.findByUsername(credentials.getUsername());
-        user.setPassword("{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
-
-        return userRepository.save(user);
+    @Transactional
+    public Integer resetPassword(LoginCredentials credentials){
+        return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
     }
 
     public List<User> listUsers() {
