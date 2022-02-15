@@ -1,6 +1,8 @@
 package com.tweetapp.demo.consoleWebClient;
 
+import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.DTOs.TweetDto;
+import com.tweetapp.demo.models.DTOs.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +17,13 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
     private boolean isLoggedIn = false;
     private String token = null;
     private String selectedOption = null;
+    private LoginCredentials loginCredentials = new LoginCredentials();
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     @Override
     public void run(String... args) throws Exception {
 
         System.out.println(apiClient.getTweets());
-        System.out.println(apiClient.login());
 
         while(true){
 
@@ -32,11 +34,23 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
                 switch (selectedOption){
                     case "1":
-                        System.out.println("register");
+                        System.out.println("Login:");
+                        loginCredentials.setUsername(reader.readLine());
+                        System.out.println("Password:");
+                        loginCredentials.setPassword(reader.readLine());
+                        apiClient.register(loginCredentials);
+
                         break;
                     case "2":
-                        System.out.println("login");
+                        System.out.println("Login:");
+                        loginCredentials.setUsername(reader.readLine());
+                        System.out.println("Password:");
+                        loginCredentials.setPassword(reader.readLine());
+
+                        String token = apiClient.login(loginCredentials);
                         isLoggedIn = true;
+                        System.out.println("Logged in");
+
                         break;
                     case "3":
                         System.out.println("forgot password");

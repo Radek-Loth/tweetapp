@@ -25,15 +25,20 @@ public class LoginController {
     }
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> processRegister(@RequestBody UserDto accountDto) {
+    public ResponseEntity<String> processRegister(@RequestBody LoginCredentials credentials) {
 
-        if (authService.usernameExist(accountDto)) {
+        if (authService.usernameExist(credentials)) {
             return new ResponseEntity<>("{\n" + "  \"message\" : \"USERNAME_EXISTS\"\n" + "}\n", HttpStatus.BAD_REQUEST);
-        } else if (authService.usernameExist(accountDto)) {
-            authService.register(accountDto);
-            return new ResponseEntity<>("{\n" + "  \"message\" : \"REGISTER_SUCCESS\"\n" + "}\n", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("{\n" + "  \"message\" : \"UNKNOWN\"\n" + "}\n", HttpStatus.NOT_IMPLEMENTED);
+            authService.register(credentials);
+            return new ResponseEntity<>("{\n" + "  \"message\" : \"REGISTER_SUCCESS\"\n" + "}\n", HttpStatus.CREATED);
         }
     }
+
+    @PostMapping(value = "/resetPassword")
+    public String resetPassword(@RequestBody LoginCredentials credentials) {
+        return authService.register(credentials).toString();
+    }
+
+
 }
