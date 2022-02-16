@@ -58,5 +58,4 @@ public class AuthService {
     public Long getUserId(String username) {
         return userRepository.findByUsername(username).getId();
     }
-
 }

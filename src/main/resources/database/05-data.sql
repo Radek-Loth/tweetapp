@@ -27,5 +27,5 @@ INSERT INTO comment(id, author_id ,tweet_id, content, created) VALUES (13, 1, '5
 INSERT INTO comment(id, author_id ,tweet_id, content, created) VALUES (14, 1, '5', 'comment 2', '2022-01-01T02:00:00.00');
 INSERT INTO comment(id, author_id ,tweet_id, content, created) VALUES (15, 1, '5', 'comment 3', '2022-01-01T03:00:00.00');
 
-INSERT INTO users (id, username, password, enabled) VALUES (1, 'test', '{bcrypt}$2a$10$upzXFsFUOClFRR69OMKF8eajGMRs0vhcSHqvNDKy9yfW45w7o9z6O', true);
+INSERT INTO users (id, username, password, enabled, isloggedin) VALUES (1, 'test', '{bcrypt}$2a$10$upzXFsFUOClFRR69OMKF8eajGMRs0vhcSHqvNDKy9yfW45w7o9z6O', true, false);
 INSERT INTO authorities (username, authority) VALUES ('test', 'USER');

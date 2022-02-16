@@ -25,4 +25,7 @@ public class User {
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
+
+    @Column(name = "isloggedin", nullable = false)
+    private Boolean isloggedin;
 }

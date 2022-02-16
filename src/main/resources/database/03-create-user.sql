@@ -4,7 +4,8 @@
 create table users
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username      varchar(45)  not null UNIQUE,
+    username   varchar(45)  not null UNIQUE,
     password   varchar(100) not null,
-    enabled    boolean      not null
+    enabled    boolean      not null,
+    isloggedin boolean      not null
 );

@@ -49,6 +49,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
                         String token = apiClient.login(loginCredentials);
                         isLoggedIn = true;
+                        apiClient.loggedInStateChange(loginCredentials, isLoggedIn);
                         System.out.println("Logged in");
 
                         break;
@@ -86,6 +87,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
                     case "6":
                         System.out.println("Logout");
                         isLoggedIn = false;
+                        apiClient.loggedInStateChange(loginCredentials, isLoggedIn);
                         break;
                 }
             }
