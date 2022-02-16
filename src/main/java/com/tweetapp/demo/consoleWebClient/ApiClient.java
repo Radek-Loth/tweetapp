@@ -67,6 +67,11 @@ public class ApiClient {
         userRepository.findByUsername(credentials.getUsername()).setIsloggedin(isLoggedIn);
     }
 
+    @Transactional
+    public void logoutAllUsers(){
+        userRepository.logoutAllUsers();
+    }
+
     public String postTweet(Tweet tweet){
         headers.set("Authorization", token);
         HttpEntity<Tweet> request = new HttpEntity(tweet, headers);

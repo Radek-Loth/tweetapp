@@ -22,6 +22,8 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
     @Override
     public void run(String... args) throws Exception {
+        apiClient.logoutAllUsers();
+
         while(true){
 
             if(isLoggedIn == false){
