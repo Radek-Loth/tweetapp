@@ -5,6 +5,7 @@ import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.DTOs.TweetDto;
 import com.tweetapp.demo.models.DTOs.UserDto;
 import com.tweetapp.demo.models.Tweet;
+import com.tweetapp.demo.models.User;
 import com.tweetapp.demo.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -30,18 +31,25 @@ public class ApiClient {
     public String getTweets(){
         headers.set("Authorization", token);
         HttpEntity request = new HttpEntity(headers);
-        return restTemplate.exchange(URL + "tweet", HttpMethod.GET, request, String.class).getBody().replace("},{", "\n\n");
+        return restTemplate.exchange(URL + "tweet", HttpMethod.GET, request, String.class)
+                .getBody()
+                .replace("},{", "\n\n");
     }
 
     public String getMyTweets(){
         headers.set("Authorization", token);
         HttpEntity request = new HttpEntity(headers);
-        return restTemplate.exchange(URL + "tweet/my", HttpMethod.GET, request, String.class).getBody().replace("},{", "\n\n");
+        return restTemplate.exchange(URL + "tweet/my", HttpMethod.GET, request, String.class)
+                .getBody()
+                .replace("},{", "\n\n");
     }
 
     public String login(LoginCredentials credentials){
         ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(URL + "login", credentials, String.class);
-        token =  String.valueOf(stringResponseEntity.getHeaders().get("Authorization")).replaceAll("\\[|\\]", "");
+        token =  String.valueOf(stringResponseEntity
+                .getHeaders()
+                .get("Authorization"))
+                .replaceAll("\\[|\\]", "");
         return token;
     }
 
@@ -63,5 +71,13 @@ public class ApiClient {
         headers.set("Authorization", token);
         HttpEntity<Tweet> request = new HttpEntity(tweet, headers);
         return String.valueOf(restTemplate.postForEntity(URL + "tweet", request, String.class));
+    }
+
+    public String getUsers() {
+        headers.set("Authorization", token);
+        HttpEntity request = new HttpEntity(headers);
+        return restTemplate.exchange(URL + "users", HttpMethod.GET, request, String.class)
+                .getBody()
+                .replace("},{", "\n\n");
     }
 }

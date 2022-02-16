@@ -80,10 +80,14 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
                         System.out.println(apiClient.getTweets());
                         break;
                     case "4":
-                        System.out.println("View all users");
+                        System.out.println(apiClient.getUsers());
                         break;
                     case "5":
-                        System.out.println("Reset password");
+                        System.out.println("Login:");
+                        loginCredentials.setUsername(reader.readLine());
+                        System.out.println("New password:");
+                        loginCredentials.setPassword(reader.readLine());
+                        apiClient.resetPassword(loginCredentials);
                         break;
                     case "6":
                         System.out.println("Logout");

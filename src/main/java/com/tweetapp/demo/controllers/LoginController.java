@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class LoginController {
@@ -46,4 +47,8 @@ public class LoginController {
         return principal.getName();
     }
 
+    @GetMapping("/users")
+    public List<User> listUsers() {
+        return authService.listUsers();
+    }
 }
