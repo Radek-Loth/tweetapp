@@ -53,7 +53,11 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
                         break;
                     case "3":
-                        System.out.println("forgot password");
+                        System.out.println("Login:");
+                        loginCredentials.setUsername(reader.readLine());
+                        System.out.println("New password:");
+                        loginCredentials.setPassword(reader.readLine());
+                        apiClient.resetPassword(loginCredentials);
                         break;
                 }
             }
