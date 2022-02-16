@@ -35,6 +35,7 @@ public class AuthService {
         user.setPassword("{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
         user.setUsername(credentials.getUsername());
         user.setEnabled(true);
+        user.setIsloggedin(false);
 
         Authority authority = new Authority();
         authority.setAuthority("USER");

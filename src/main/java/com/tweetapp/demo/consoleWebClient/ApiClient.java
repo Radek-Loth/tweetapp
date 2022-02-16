@@ -1,20 +1,19 @@
 package com.tweetapp.demo.consoleWebClient;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.DTOs.TweetDto;
 import com.tweetapp.demo.models.DTOs.UserDto;
 import com.tweetapp.demo.models.Tweet;
 import com.tweetapp.demo.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -29,7 +28,15 @@ public class ApiClient {
     UserRepository userRepository;
 
     public String getTweets(){
-        return restTemplate.getForObject(URL + "tweet", String.class);
+        headers.set("Authorization", token);
+        HttpEntity request = new HttpEntity(headers);
+        return restTemplate.exchange(URL + "tweet", HttpMethod.GET, request, String.class).getBody().replace("},{", "\n\n");
+    }
+
+    public String getMyTweets(){
+        headers.set("Authorization", token);
+        HttpEntity request = new HttpEntity(headers);
+        return restTemplate.exchange(URL + "tweet/my", HttpMethod.GET, request, String.class).getBody().replace("},{", "\n\n");
     }
 
     public String login(LoginCredentials credentials){
@@ -52,7 +59,7 @@ public class ApiClient {
         userRepository.findByUsername(credentials.getUsername()).setIsloggedin(isLoggedIn);
     }
 
-    public String postTweet(Tweet tweet, String token){
+    public String postTweet(Tweet tweet){
         headers.set("Authorization", token);
         HttpEntity<Tweet> request = new HttpEntity(tweet, headers);
         return String.valueOf(restTemplate.postForEntity(URL + "tweet", request, String.class));

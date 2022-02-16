@@ -24,4 +24,8 @@ public class TweetService implements ITweetService{
         tweet.setAuthor_id(authService.getUserId(username));
         return tweetRepository.save(tweet);
     }
+
+    public List<Tweet> getMyTweets(Long id) {
+        return tweetRepository.findAllByAuthorId(id);
+    }
 }

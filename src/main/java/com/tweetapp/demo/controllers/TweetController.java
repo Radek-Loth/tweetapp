@@ -1,6 +1,7 @@
 package com.tweetapp.demo.controllers;
 
 import com.tweetapp.demo.models.Tweet;
+import com.tweetapp.demo.services.AuthService;
 import com.tweetapp.demo.services.TweetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,15 +18,20 @@ import java.util.List;
 public class TweetController {
 
     private final TweetService tweetService;
+    private final AuthService authService;
 
     @GetMapping("/tweet")
     public List<Tweet> getTweets() {
        return tweetService.getTweets();
     }
 
+    @GetMapping("/tweet/my")
+    public List<Tweet> getMyTweets(Principal principal) {
+        return tweetService.getMyTweets(authService.getUserId(principal.getName()));
+    }
+
     @PostMapping("/tweet")
     public Tweet addTweet(@RequestBody Tweet tweet, Principal principal){
         return tweetService.addTweet(tweet, principal.getName());
     }
-
 }

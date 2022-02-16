@@ -16,7 +16,6 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
     private final ApiClient apiClient;
     private boolean isLoggedIn = false;
-    private String token = null;
     private String selectedOption = null;
     private LoginCredentials loginCredentials = new LoginCredentials();
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -45,7 +44,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
                         System.out.println("Password:");
                         loginCredentials.setPassword(reader.readLine());
 
-                        token = apiClient.login(loginCredentials);
+                        apiClient.login(loginCredentials);
                         isLoggedIn = true;
                         apiClient.loggedInStateChange(loginCredentials, isLoggedIn);
                         System.out.println("Logged in");
@@ -72,10 +71,10 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
                         tweet.setTitle(reader.readLine());
                         System.out.println("Content: ");
                         tweet.setContent(reader.readLine());
-                        apiClient.postTweet(tweet, token);
+                        apiClient.postTweet(tweet);
                         break;
                     case "2":
-                        System.out.println("View my tweets");
+                        System.out.println(apiClient.getMyTweets());
                         break;
                     case "3":
                         System.out.println(apiClient.getTweets());
