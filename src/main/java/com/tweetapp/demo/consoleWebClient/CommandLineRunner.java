@@ -3,6 +3,7 @@ package com.tweetapp.demo.consoleWebClient;
 import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.DTOs.TweetDto;
 import com.tweetapp.demo.models.DTOs.UserDto;
+import com.tweetapp.demo.models.Tweet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,6 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
     @Override
     public void run(String... args) throws Exception {
-
-        System.out.println(apiClient.getTweets());
-
         while(true){
 
             if(isLoggedIn == false){
@@ -47,7 +45,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
                         System.out.println("Password:");
                         loginCredentials.setPassword(reader.readLine());
 
-                        String token = apiClient.login(loginCredentials);
+                        token = apiClient.login(loginCredentials);
                         isLoggedIn = true;
                         apiClient.loggedInStateChange(loginCredentials, isLoggedIn);
                         System.out.println("Logged in");
@@ -69,13 +67,17 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
                 switch (selectedOption){
                     case "1":
-                        System.out.println("Post a tweet");
+                        Tweet tweet = new Tweet();
+                        System.out.println("Title: ");
+                        tweet.setTitle(reader.readLine());
+                        System.out.println("Content: ");
+                        tweet.setContent(reader.readLine());
+                        apiClient.postTweet(tweet, token);
                         break;
                     case "2":
                         System.out.println("View my tweets");
                         break;
                     case "3":
-                        System.out.println("View all tweets");
                         System.out.println(apiClient.getTweets());
                         break;
                     case "4":

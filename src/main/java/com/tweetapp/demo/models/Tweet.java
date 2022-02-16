@@ -20,6 +20,6 @@ public class Tweet {
     private LocalDateTime created;
 
     @OneToMany
-    @JoinColumn(name = "tweet_id", updatable = false, insertable = false)
+    @JoinColumn(name = "tweetId", updatable = false, insertable = false)
     private List<Comment> comment;
 }
