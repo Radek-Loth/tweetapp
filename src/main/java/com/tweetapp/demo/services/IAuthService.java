@@ -9,7 +9,7 @@ import java.util.List;
 public interface IAuthService {
 
     public User register(UserDto dto);
-    public Integer resetPassword(LoginCredentials credentials);
+    public Integer changePassword(LoginCredentials credentials);
     public List<String> listUsers();
     public Long getUserId(String username);
 }

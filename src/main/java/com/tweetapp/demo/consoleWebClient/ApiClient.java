@@ -46,8 +46,12 @@ public class ApiClient {
         return String.valueOf(stringResponseEntity.getHeaders().get("Authorization"));
     }
 
-    public String resetPassword(LoginCredentials credentials) {
-        return String.valueOf(restTemplate.postForEntity(URL + "resetPassword", credentials, String.class));
+    public String changePassword(LoginCredentials credentials) {
+        return String.valueOf(restTemplate.postForEntity(URL + "changePassword", credentials, String.class));
+    }
+
+    public String resetPassword(UserDto user) {
+        return String.valueOf(restTemplate.postForEntity(URL + "resetPassword", user, String.class));
     }
 
     @Transactional

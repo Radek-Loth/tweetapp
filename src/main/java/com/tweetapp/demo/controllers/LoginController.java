@@ -34,9 +34,14 @@ public class LoginController {
         }
     }
 
+    @PostMapping(value = "/changePassword")
+    public String changePassword(@RequestBody LoginCredentials credentials) {
+        return authService.changePassword(credentials).toString();
+    }
+
     @PostMapping(value = "/resetPassword")
-    public String resetPassword(@RequestBody LoginCredentials credentials) {
-        return authService.resetPassword(credentials).toString();
+    public String resetPassword(@RequestBody UserDto user) {
+        return authService.resetPassword(user).toString();
     }
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)

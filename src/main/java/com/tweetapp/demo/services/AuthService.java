@@ -40,6 +40,7 @@ public class AuthService implements IAuthService{
         user.setPassword("{bcrypt}" + passwordEncoder.encode(dto.getPassword()));
         user.setUsername(dto.getUsername());
         user.setEnabled(true);
+        user.setDateOfBirth(dto.getDateOfBirth());
         user.setIsLoggedIn(false);
 
         Authority authority = new Authority();
@@ -53,8 +54,23 @@ public class AuthService implements IAuthService{
     }
 
     @Transactional
-    public Integer resetPassword(LoginCredentials credentials) {
+    public Integer changePassword(LoginCredentials credentials) {
         return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
+    }
+
+    @Transactional
+    public Integer resetPassword(UserDto user) {
+        User checkUser = userRepository.findByUsername(user.getUsername());
+        if
+        (       checkUser.getUsername().equals(user.getUsername()) &&
+                checkUser.getFirstName().equals(user.getFirstName()) &&
+                checkUser.getLastName().equals(user.getLastName()) &&
+                checkUser.getDateOfBirth().equals(user.getDateOfBirth()) &&
+                checkUser.getIsFemale().equals(user.getIsFemale())
+        ){
+            return userRepository.updatePassword(user.getUsername(), "{bcrypt}" + passwordEncoder.encode(user.getPassword()));
+        }
+        else return 0;
     }
 
     public List<String> listUsers() {

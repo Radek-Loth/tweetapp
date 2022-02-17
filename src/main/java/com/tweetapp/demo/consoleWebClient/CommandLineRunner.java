@@ -3,6 +3,7 @@ package com.tweetapp.demo.consoleWebClient;
 import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.DTOs.UserDto;
 import com.tweetapp.demo.models.Tweet;
+import com.tweetapp.demo.models.User;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.DateValidator;
@@ -47,15 +48,15 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
                         do{
                             System.out.println("Password:\n");
                             dto.setPassword(reader.readLine());
-                        }while (dto.getPassword().length() > 3);
+                        }while (!(dto.getPassword().length() > 3));
                         do{
                             System.out.println("First name:\n");
                             dto.setFirstName(reader.readLine());
-                        }while (dto.getFirstName().length() > 3);
+                        }while (!(dto.getFirstName().length() > 3));
                         do{
                             System.out.println("Last name:\n");
                             dto.setLastName(reader.readLine());
-                        }while (dto.getLastName().length() > 3);
+                        }while (!(dto.getLastName().length() > 3));
                         String date = null;
                         do{
                             System.out.println("Birth date: (yyyy-MM-dd)\n");
@@ -104,11 +105,51 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 
                         break;
                     case "3":
-                        System.out.println("Email:\n");
-                        loginCredentials.setUsername(reader.readLine());
-                        System.out.println("New password:\n");
-                        loginCredentials.setPassword(reader.readLine());
-                        apiClient.resetPassword(loginCredentials);
+                        UserDto user = new UserDto();
+
+                        do {
+                            System.out.println("Email:\n");
+                            user.setUsername(reader.readLine());
+                        } while (!EmailValidator.getInstance().isValid(user.getUsername()));
+                        do{
+                            System.out.println("New password:\n");
+                            user.setPassword(reader.readLine());
+                        }while (!(user.getPassword().length() > 3));
+                        do{
+                            System.out.println("First name:\n");
+                            user.setFirstName(reader.readLine());
+                        }while (!(user.getFirstName().length() > 3));
+                        do{
+                            System.out.println("Last name:\n");
+                            user.setLastName(reader.readLine());
+                        }while (!(user.getLastName().length() > 3));
+                        do{
+                            System.out.println("Birth date: (yyyy-MM-dd)\n");
+                            date = reader.readLine();
+                        }while(!GenericValidator.isDate(date, "yyyy-MM-dd", true));
+                        user.setDateOfBirth(LocalDate.parse(date));
+
+                        do{
+                            System.out.println("Gender: (female or male)\n");
+                            gender = reader.readLine();
+                            if(gender.equals("female")){
+                                user.setIsFemale(true);
+                            }
+                            else if(gender.equals("male")){
+                                user.setIsFemale(false);
+                            }
+                            else{
+                                System.out.println("Probably a typo, try again.\n");
+                            }
+                        }while(!(gender.equals("female") || gender.equals("male")));
+
+                        try{
+                           apiClient.resetPassword(user);
+                        }catch (Exception e){
+                            System.out.println("There was a problem.");
+                            e.printStackTrace();
+                            break;
+                        }
                         break;
                 }
             } else if (isLoggedIn == true) {
@@ -158,7 +199,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
                         System.out.println("New password:\n");
                         loginCredentials.setPassword(reader.readLine());
                         try {
-                            apiClient.resetPassword(loginCredentials);
+                            apiClient.changePassword(loginCredentials);
                         } catch (Exception e) {
                             System.out.println("Something went wrong.\n");
                         }
