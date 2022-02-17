@@ -10,13 +10,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TweetService implements ITweetService{
+public class TweetService implements ITweetService {
 
     private final TweetRepository tweetRepository;
     private final AuthService authService;
 
-    public List<Tweet> getTweets(){
-        return tweetRepository.findAll();
+    public List<String> getTweets() {
+        return tweetRepository.findAll()
+                .stream()
+                .map(tweet -> {
+                    return tweet.getTitle() + "  " + tweet.getContent();
+                }).toList();
     }
 
     public Tweet addTweet(Tweet tweet, String username) {
@@ -25,7 +29,11 @@ public class TweetService implements ITweetService{
         return tweetRepository.save(tweet);
     }
 
-    public List<Tweet> getMyTweets(Long id) {
-        return tweetRepository.findAllByAuthorId(id);
+    public List<String> getMyTweets(Long id) {
+        return tweetRepository.findAllByAuthorId(id)
+                .stream()
+                .map(tweet -> {
+                    return tweet.getTitle() + "  " + tweet.getContent();
+                }).toList();
     }
 }

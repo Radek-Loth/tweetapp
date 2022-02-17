@@ -1,4 +1,5 @@
 package com.tweetapp.demo.config;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

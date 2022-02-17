@@ -16,9 +16,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.password = :pass  WHERE u.username = :name")
     Integer updatePassword(@Param("name") String username,
-                        @Param("pass") String password);
+                           @Param("pass") String password);
 
     @Modifying
-    @Query("UPDATE User u SET u.isloggedin = false  WHERE u.isloggedin = true")
+    @Query("UPDATE User u SET u.isLoggedIn = false  WHERE u.isLoggedIn = true")
     Integer logoutAllUsers();
 }

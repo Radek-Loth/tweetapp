@@ -12,30 +12,35 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthService implements IAuthService{
 
     @Autowired
     UserRepository userRepository;
     @Autowired
     AuthorityRepository authorityRepository;
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public boolean usernameExist(LoginCredentials credentials) {
-        return userRepository.findByUsername(credentials.getUsername()) != null;
+    public boolean usernameExist(UserDto dto) {
+        return userRepository.findByUsername(dto.getUsername()) != null;
     }
 
-    public User register(LoginCredentials credentials) {
+    public User register(UserDto dto) {
 
         User user = new User();
-        user.setPassword("{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
-        user.setUsername(credentials.getUsername());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setIsFemale(dto.getIsFemale());
+        user.setPassword("{bcrypt}" + passwordEncoder.encode(dto.getPassword()));
+        user.setUsername(dto.getUsername());
         user.setEnabled(true);
-        user.setIsloggedin(false);
+        user.setIsLoggedIn(false);
 
         Authority authority = new Authority();
         authority.setAuthority("USER");
@@ -48,12 +53,16 @@ public class AuthService {
     }
 
     @Transactional
-    public Integer resetPassword(LoginCredentials credentials){
+    public Integer resetPassword(LoginCredentials credentials) {
         return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
     }
 
-    public List<User> listUsers() {
-        return userRepository.findAll();
+    public List<String> listUsers() {
+
+       return userRepository.findAll()
+               .stream()
+               .map(user -> user.getUsername())
+               .toList();
     }
 
     public Long getUserId(String username) {

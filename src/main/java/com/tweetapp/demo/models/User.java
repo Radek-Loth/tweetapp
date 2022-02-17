@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -17,15 +18,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 45)
+    @Column(name = "first_name", nullable = false, length = 100)
+    private String firstName;
+
+    @Column(name = "last_name", length = 100)
+    private String lastName;
+
+    @Column(name = "is_female", nullable = false)
+    private Boolean isFemale;
+
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    @Column(name = "username", nullable = false, unique = true, length = 100)
     private String username;
 
-    @Column(nullable = false, length = 64)
+    @Column(name = "password" ,nullable = false, length = 100)
     private String password;
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @Column(name = "isloggedin", nullable = false)
-    private Boolean isloggedin;
+    @Column(name = "is_logged_in", nullable = false)
+    private Boolean isLoggedIn;
 }
