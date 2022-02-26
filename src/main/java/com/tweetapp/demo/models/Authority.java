@@ -2,6 +2,7 @@ package com.tweetapp.demo.models;
 
 import lombok.Getter;
 import lombok.Setter;
+<<<<<<< Updated upstream
 
 import javax.persistence.*;
 
@@ -18,5 +19,18 @@ public class Authority {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
+=======
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Getter
+@Setter
+@Document
+public class Authority {
+
+    @Id
+    private long id;
+    private String authority;
+>>>>>>> Stashed changes
     private User user;
 }

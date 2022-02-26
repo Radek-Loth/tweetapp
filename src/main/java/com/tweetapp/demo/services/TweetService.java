@@ -25,12 +25,21 @@ public class TweetService implements ITweetService {
 
     public Tweet addTweet(Tweet tweet, String username) {
         tweet.setCreated(LocalDateTime.now());
+<<<<<<< Updated upstream
         tweet.setAuthor_id(authService.getUserId(username));
         return tweetRepository.save(tweet);
     }
 
     public List<String> getMyTweets(Long id) {
         return tweetRepository.findAllByAuthorId(id)
+=======
+        tweet.setAuthor(authService.getUserId(username));
+        return tweetRepository.save(tweet);
+    }
+
+    public List<String> getMyTweets(String id) {
+        return tweetRepository.findAllByAuthor(id)
+>>>>>>> Stashed changes
                 .stream()
                 .map(tweet -> {
                     return tweet.getTitle() + "  " + tweet.getContent();

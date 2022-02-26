@@ -18,7 +18,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+<<<<<<< Updated upstream
 public class AuthService implements IAuthService{
+=======
+public class AuthService{
+>>>>>>> Stashed changes
 
     @Autowired
     UserRepository userRepository;
@@ -53,12 +57,21 @@ public class AuthService implements IAuthService{
         return user;
     }
 
+<<<<<<< Updated upstream
     @Transactional
     public Integer changePassword(LoginCredentials credentials) {
         return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
     }
 
     @Transactional
+=======
+/*    @Transactional
+    public Integer changePassword(LoginCredentials credentials) {
+        return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
+    }*/
+
+/*    @Transactional
+>>>>>>> Stashed changes
     public Integer resetPassword(UserDto user) {
         User checkUser = userRepository.findByUsername(user.getUsername());
         if
@@ -71,7 +84,11 @@ public class AuthService implements IAuthService{
             return userRepository.updatePassword(user.getUsername(), "{bcrypt}" + passwordEncoder.encode(user.getPassword()));
         }
         else return 0;
+<<<<<<< Updated upstream
     }
+=======
+    }*/
+>>>>>>> Stashed changes
 
     public List<String> listUsers() {
 
@@ -81,7 +98,11 @@ public class AuthService implements IAuthService{
                .toList();
     }
 
+<<<<<<< Updated upstream
     public Long getUserId(String username) {
+=======
+    public String getUserId(String username) {
+>>>>>>> Stashed changes
         return userRepository.findByUsername(username).getId();
     }
 }
