@@ -8,8 +8,11 @@ import java.util.List;
 
 public interface IAuthService {
 
-    public User register(UserDto dto);
-    public Integer changePassword(LoginCredentials credentials);
-    public List<String> listUsers();
-    public Long getUserId(String username);
+    User register(UserDto dto);
+
+    Integer changePassword(LoginCredentials credentials);
+
+    List<String> listUsers();
+
+    Long getUserId(String username);
 }

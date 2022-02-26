@@ -2,15 +2,11 @@ package com.tweetapp.demo.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-<<<<<<< Updated upstream
-=======
 import com.tweetapp.demo.repos.UserRepository;
->>>>>>> Stashed changes
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -22,16 +18,6 @@ import java.io.IOException;
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private static final String TOKEN_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
-<<<<<<< Updated upstream
-    private final UserDetailsService userDetailsService;
-    private final String secret;
-
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-                                  UserDetailsService userDetailsService,
-                                  String secret) {
-        super(authenticationManager);
-        this.userDetailsService = userDetailsService;
-=======
     private final String secret;
     private final UserRepository userRepository;
 
@@ -40,7 +26,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                                   String secret) {
         super(authenticationManager);
         this.userRepository = userRepository;
->>>>>>> Stashed changes
         this.secret = secret;
     }
 
@@ -64,11 +49,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
             if (userName != null) {
-<<<<<<< Updated upstream
-                UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-=======
+
                 UserDetails userDetails = userRepository.findByUsername(userName);
->>>>>>> Stashed changes
                 return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
             }
         }

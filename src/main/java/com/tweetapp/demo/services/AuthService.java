@@ -1,6 +1,5 @@
 package com.tweetapp.demo.services;
 
-import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.Authority;
 import com.tweetapp.demo.models.DTOs.UserDto;
 import com.tweetapp.demo.models.User;
@@ -10,26 +9,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-<<<<<<< Updated upstream
-public class AuthService implements IAuthService{
-=======
-public class AuthService{
->>>>>>> Stashed changes
+public class AuthService {
 
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Autowired
     UserRepository userRepository;
     @Autowired
     AuthorityRepository authorityRepository;
-
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public boolean usernameExist(UserDto dto) {
         return userRepository.findByUsername(dto.getUsername()) != null;
@@ -56,22 +47,12 @@ public class AuthService{
 
         return user;
     }
-
-<<<<<<< Updated upstream
-    @Transactional
-    public Integer changePassword(LoginCredentials credentials) {
-        return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
-    }
-
-    @Transactional
-=======
 /*    @Transactional
     public Integer changePassword(LoginCredentials credentials) {
         return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
     }*/
 
 /*    @Transactional
->>>>>>> Stashed changes
     public Integer resetPassword(UserDto user) {
         User checkUser = userRepository.findByUsername(user.getUsername());
         if
@@ -84,25 +65,18 @@ public class AuthService{
             return userRepository.updatePassword(user.getUsername(), "{bcrypt}" + passwordEncoder.encode(user.getPassword()));
         }
         else return 0;
-<<<<<<< Updated upstream
-    }
-=======
     }*/
->>>>>>> Stashed changes
+
 
     public List<String> listUsers() {
 
-       return userRepository.findAll()
-               .stream()
-               .map(user -> user.getUsername())
-               .toList();
+        return userRepository.findAll()
+                .stream()
+                .map(user -> user.getUsername())
+                .toList();
     }
 
-<<<<<<< Updated upstream
-    public Long getUserId(String username) {
-=======
     public String getUserId(String username) {
->>>>>>> Stashed changes
         return userRepository.findByUsername(username).getId();
     }
 }

@@ -2,7 +2,6 @@ package com.tweetapp.demo.controllers;
 
 import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.DTOs.UserDto;
-import com.tweetapp.demo.models.User;
 import com.tweetapp.demo.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,18 +32,6 @@ public class LoginController {
             return new ResponseEntity<>("{\n" + "  \"message\" : \"REGISTER_SUCCESS\"\n" + "}\n", HttpStatus.CREATED);
         }
     }
-
-<<<<<<< Updated upstream
-    @PostMapping(value = "/changePassword")
-    public String changePassword(@RequestBody LoginCredentials credentials) {
-        return authService.changePassword(credentials).toString();
-    }
-
-    @PostMapping(value = "/resetPassword")
-    public String resetPassword(@RequestBody UserDto user) {
-        return authService.resetPassword(user).toString();
-    }
-=======
 /*    @PostMapping(value = "/changePassword")
     public String changePassword(@RequestBody LoginCredentials credentials) {
         return authService.changePassword(credentials).toString();
@@ -54,7 +41,6 @@ public class LoginController {
     public String resetPassword(@RequestBody UserDto user) {
         return authService.resetPassword(user).toString();
     }*/
->>>>>>> Stashed changes
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody

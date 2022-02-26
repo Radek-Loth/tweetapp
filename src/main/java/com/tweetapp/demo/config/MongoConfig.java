@@ -18,6 +18,7 @@ public class MongoConfig {
 
     @Value("${mongo.connection-string}")
     private String connectionInfo;
+
     @Bean
     public MongoClient mongo() {
         ConnectionString connectionString = new ConnectionString(connectionInfo);
