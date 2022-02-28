@@ -1,4 +1,4 @@
-package com.tweetapp.demo.models.DTOs;
+package com.tweetapp.demo.web.dtos;
 
 import lombok.Builder;
 import lombok.Getter;

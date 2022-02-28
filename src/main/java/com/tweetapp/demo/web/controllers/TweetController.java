@@ -1,4 +1,4 @@
-package com.tweetapp.demo.controllers;
+package com.tweetapp.demo.web.controllers;
 
 import com.tweetapp.demo.models.Tweet;
 import com.tweetapp.demo.services.AuthService;

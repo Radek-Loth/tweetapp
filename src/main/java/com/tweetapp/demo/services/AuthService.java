@@ -1,8 +1,9 @@
 package com.tweetapp.demo.services;
 
-import com.tweetapp.demo.models.DTOs.UserDto;
+import com.tweetapp.demo.web.dtos.UserDto;
 import com.tweetapp.demo.models.User;
 import com.tweetapp.demo.repos.UserRepository;
+import com.tweetapp.demo.web.errors.UserAlreadyExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,17 +14,30 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    public boolean usernameExist(UserDto dto) {
-        return userRepository.findByUsername(dto.getUsername()) != null;
+    private boolean usernameExist(String username) {
+        return userRepository.findByUsername(username) != null;
     }
 
-    public User register(UserDto dto) {
+    private boolean emailExist(String email) {
+        return userRepository.findByUsername(email) != null;
+    }
+
+
+    public User register(UserDto dto) throws UserAlreadyExistException{
+
+        if(emailExist(dto.getEmail())){
+            throw new UserAlreadyExistException("There is an account with that email address: " + dto.getEmail());
+        }
+        else if(usernameExist(dto.getUsername())){
+            throw new UserAlreadyExistException("There is an account with that username: " + dto.getUsername());
+        }
 
         User user = new User();
         user.setFirstName(dto.getFirstName());
@@ -44,7 +58,6 @@ public class AuthService {
         return userRepository.updatePassword(credentials.getUsername(), "{bcrypt}" + passwordEncoder.encode(credentials.getPassword()));
     }*/
 
-    @Transactional
     public User resetPassword(UserDto user) {
         User checkUser = userRepository.findByUsername(user.getUsername());
         if

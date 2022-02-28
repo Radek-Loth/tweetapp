@@ -29,6 +29,9 @@ public class User implements UserDetails {
     @Field("username")
     @Indexed(unique = true, background = true)
     private String username;
+    @Field("email")
+    @Indexed(unique = true, background = true)
+    private String email;
     @Field("password")
     private String password;
     @Field("enabled")

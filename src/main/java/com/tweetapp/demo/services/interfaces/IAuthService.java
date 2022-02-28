@@ -1,7 +1,7 @@
 package com.tweetapp.demo.services.interfaces;
 
 import com.tweetapp.demo.config.LoginCredentials;
-import com.tweetapp.demo.models.DTOs.UserDto;
+import com.tweetapp.demo.web.dtos.UserDto;
 import com.tweetapp.demo.models.User;
 
 import java.util.List;
