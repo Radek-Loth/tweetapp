@@ -2,6 +2,7 @@ package com.tweetapp.demo.services;
 
 import com.tweetapp.demo.models.Tweet;
 import com.tweetapp.demo.repos.TweetRepository;
+import com.tweetapp.demo.services.interfaces.ITweetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +11,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TweetService implements ITweetService {
+public class TweetService {
 
     private final TweetRepository tweetRepository;
     private final AuthService authService;
 
-    public List<String> getTweets() {
-        return tweetRepository.findAll()
-                .stream()
-                .map(tweet -> {
-                    return tweet.getTitle() + "  " + tweet.getContent();
-                }).toList();
+    public List<Tweet> getTweets() {
+        return tweetRepository.findAll();
     }
 
     public Tweet addTweet(Tweet tweet, String username) {
@@ -29,11 +26,7 @@ public class TweetService implements ITweetService {
         return tweetRepository.save(tweet);
     }
 
-    public List<String> getMyTweets(String id) {
-        return tweetRepository.findAllByAuthor(id)
-                .stream()
-                .map(tweet -> {
-                    return tweet.getTitle() + "  " + tweet.getContent();
-                }).toList();
+    public List<Tweet> getMyTweets(String id) {
+        return tweetRepository.findAllByAuthor(id);
     }
 }

@@ -20,12 +20,12 @@ public class TweetController {
     private final AuthService authService;
 
     @GetMapping("/tweet")
-    public List<String> getTweets() {
+    public List<Tweet> getTweets() {
         return tweetService.getTweets();
     }
 
     @GetMapping("/tweet/my")
-    public List<String> getMyTweets(Principal principal) {
+    public List<Tweet> getMyTweets(Principal principal) {
         return tweetService.getMyTweets(authService.getUserId(principal.getName()));
     }
 

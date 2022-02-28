@@ -1,4 +1,4 @@
-package com.tweetapp.demo.services;
+package com.tweetapp.demo.services.interfaces;
 
 import com.tweetapp.demo.models.Tweet;
 

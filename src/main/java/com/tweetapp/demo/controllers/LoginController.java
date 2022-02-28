@@ -2,6 +2,7 @@ package com.tweetapp.demo.controllers;
 
 import com.tweetapp.demo.config.LoginCredentials;
 import com.tweetapp.demo.models.DTOs.UserDto;
+import com.tweetapp.demo.models.User;
 import com.tweetapp.demo.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,28 +19,23 @@ public class LoginController {
     @Autowired
     private AuthService authService;
 
+    @PostMapping(value = "/register")
+    public User processRegister(@RequestBody UserDto user) {
+        return authService.register(user);
+    }
+
     @PostMapping("/login")
     public void login(@RequestBody LoginCredentials credentials) {
     }
 
-    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> processRegister(@RequestBody UserDto user) {
-
-        if (authService.usernameExist(user)) {
-            return new ResponseEntity<>("{\n" + "  \"message\" : \"USERNAME_EXISTS\"\n" + "}\n", HttpStatus.BAD_REQUEST);
-        } else {
-            authService.register(user);
-            return new ResponseEntity<>("{\n" + "  \"message\" : \"REGISTER_SUCCESS\"\n" + "}\n", HttpStatus.CREATED);
-        }
+    @PostMapping(value = "/forgot")
+    public String resetPassword(@RequestBody UserDto user) {
+        return authService.resetPassword(user).toString();
     }
+
 /*    @PostMapping(value = "/changePassword")
     public String changePassword(@RequestBody LoginCredentials credentials) {
         return authService.changePassword(credentials).toString();
-    }*/
-
-/*    @PostMapping(value = "/resetPassword")
-    public String resetPassword(@RequestBody UserDto user) {
-        return authService.resetPassword(user).toString();
     }*/
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
@@ -49,7 +45,7 @@ public class LoginController {
     }
 
     @GetMapping("/users")
-    public List<String> listUsers() {
+    public List<User> listUsers() {
         return authService.listUsers();
     }
 }

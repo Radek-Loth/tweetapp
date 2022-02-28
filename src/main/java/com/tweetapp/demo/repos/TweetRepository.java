@@ -9,6 +9,4 @@ import java.util.List;
 @Repository
 public interface TweetRepository extends MongoRepository<Tweet, Long> {
     List<Tweet> findAllByAuthor(String id);
-//    List<Tweet> findAllByAuthor_id(Long id);
-
 }
