@@ -1,4 +1,5 @@
-package com.tweetapp.demo.models.validators.email;
+package com.tweetapp.demo.validators.password;
+
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,12 +10,12 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({TYPE, FIELD, ANNOTATION_TYPE})
+@Target({TYPE,ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = PasswordMatchesValidator.class)
 @Documented
-public @interface ValidEmail {
-    String message() default "Invalid email";
+public @interface PasswordMatches {
+    String message() default "Passwords don't match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

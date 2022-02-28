@@ -1,4 +1,4 @@
-package com.tweetapp.demo.models.validators.password;
+package com.tweetapp.demo.validators.password;
 
 import com.tweetapp.demo.web.dtos.UserDto;
 

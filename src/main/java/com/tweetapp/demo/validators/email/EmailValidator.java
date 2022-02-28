@@ -1,4 +1,4 @@
-package com.tweetapp.demo.models.validators.email;
+package com.tweetapp.demo.validators.email;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

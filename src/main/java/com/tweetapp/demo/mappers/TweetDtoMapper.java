@@ -1,4 +1,4 @@
-package com.tweetapp.demo.models.mappers;
+package com.tweetapp.demo.mappers;
 
 import com.tweetapp.demo.web.dtos.TweetDto;
 import com.tweetapp.demo.models.Tweet;

@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -49,9 +50,7 @@ public class AuthService {
         user.setDateOfBirth(dto.getDateOfBirth());
         user.setIsLoggedIn(false);
 
-        userRepository.save(user);
-
-        return user;
+        return userRepository.save(user);
     }
 /*    @Transactional
     public Integer changePassword(LoginCredentials credentials) {
