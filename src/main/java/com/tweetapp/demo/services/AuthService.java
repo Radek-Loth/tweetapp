@@ -1,8 +1,8 @@
 package com.tweetapp.demo.services;
 
-import com.tweetapp.demo.web.dtos.UserDto;
 import com.tweetapp.demo.models.User;
 import com.tweetapp.demo.repos.UserRepository;
+import com.tweetapp.demo.web.dtos.UserDto;
 import com.tweetapp.demo.web.errors.UserAlreadyExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -19,8 +18,7 @@ import java.util.List;
 public class AuthService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private boolean usernameExist(String username) {
         return userRepository.findByUsername(username) != null;
@@ -29,7 +27,6 @@ public class AuthService {
     private boolean emailExist(String email) {
         return userRepository.findByUsername(email) != null;
     }
-
 
     public User register(UserDto dto) throws UserAlreadyExistException{
 
@@ -79,5 +76,9 @@ public class AuthService {
 
     public String getUserId(String username) {
         return userRepository.findByUsername(username).getId();
+    }
+
+    public List<User> searchByUsername(String username) {
+        return userRepository.findByUsernameLike(username);
     }
 }

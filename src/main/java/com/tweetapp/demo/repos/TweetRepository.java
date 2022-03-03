@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TweetRepository extends MongoRepository<Tweet, Long> {
+public interface TweetRepository extends MongoRepository<Tweet, String> {
     List<Tweet> findAllByAuthor(String id);
 }

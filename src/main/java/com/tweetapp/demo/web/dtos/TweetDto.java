@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class TweetDto {
-    private long id;
+    private String id;
     private Long userId;
     private String title;
     private String content;

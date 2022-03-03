@@ -13,7 +13,7 @@ import java.util.List;
 public class Tweet {
 
     @Id
-    private long id;
+    private String id;
     @Field("author")
     private String author;
     @Field("title")
@@ -22,6 +22,8 @@ public class Tweet {
     private String content;
     @Field("created")
     private LocalDateTime created;
+    @Field("edited")
+    private LocalDateTime edited;
     @Field("comment")
     private List<Comment> comment;
 }
