@@ -30,7 +30,7 @@ public class UserDto {
     private String username;
     @ValidEmail
     @NotNull
-    @Size(min = 1, message = "{Size.userDto.email}")
+    @Size(min = 1, message = "email cannot be empty")
     private String email;
     @NotNull
     @NotEmpty

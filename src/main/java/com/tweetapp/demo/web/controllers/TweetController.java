@@ -46,13 +46,13 @@ public class TweetController {
     }
 
     @DeleteMapping("delete/{id}")
-    public Tweet deleteTweet(@PathVariable String id){
-        throw new IllegalArgumentException("Not implemented yet");
+    public void deleteTweet(@PathVariable String id){
+        tweetService.deleteTweet(id);
     }
 
     @PutMapping("like/{id}")
-    public Tweet likeTweet(@PathVariable String id){
-        throw new IllegalArgumentException("Not implemented yet");
+    public void likeTweet(@PathVariable String id, Principal principal){
+        tweetService.likeTweet(id, principal);
     }
 
     @PostMapping("reply/{id}")

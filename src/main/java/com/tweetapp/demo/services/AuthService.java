@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -80,5 +81,9 @@ public class AuthService {
 
     public List<User> searchByUsername(String username) {
         return userRepository.findByUsernameLike(username);
+    }
+
+    public User getUserByPrincipal(Principal principal){
+        return userRepository.findByUsername(principal.getName());
     }
 }
