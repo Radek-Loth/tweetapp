@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
     User findByUsername(String username);
+
     List<User> findByUsernameLike(String username);
 /*
     Integer logoutAllUsers();

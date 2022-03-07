@@ -1,7 +1,7 @@
 package com.tweetapp.demo.mappers;
 
-import com.tweetapp.demo.web.dtos.TweetDto;
 import com.tweetapp.demo.models.Tweet;
+import com.tweetapp.demo.web.dtos.TweetDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

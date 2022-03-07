@@ -4,7 +4,6 @@ import com.tweetapp.demo.models.Comment;
 import com.tweetapp.demo.models.Tweet;
 import com.tweetapp.demo.models.User;
 import com.tweetapp.demo.repos.TweetRepository;
-import com.tweetapp.demo.services.interfaces.ITweetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,8 +12,6 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +26,7 @@ public class TweetService {
 
     public Tweet addTweet(Tweet tweet, String username) {
         tweet.setCreated(LocalDateTime.now());
-        tweet.setEdited(LocalDateTime.now());
+        tweet.setModified(LocalDateTime.now());
         tweet.setComment(Collections.<Comment>emptyList());
         tweet.setAuthor(authService.getUserId(username));
         tweet.setLikes(Collections.<User>emptyList());
@@ -44,7 +41,7 @@ public class TweetService {
     @Transactional
     public Tweet updateTweet(String postId, Tweet tweet) {
         Tweet edited = tweetRepository.findById(postId).orElseThrow();
-        edited.setEdited(LocalDateTime.now());
+        edited.setModified(LocalDateTime.now());
         edited.setContent(tweet.getContent());
         edited.setTitle(tweet.getTitle());
         return tweetRepository.save(edited);

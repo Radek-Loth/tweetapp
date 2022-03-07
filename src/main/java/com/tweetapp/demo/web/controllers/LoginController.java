@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> register(@RequestBody  @Valid UserDto userDto) {
+    public ResponseEntity<String> register(@RequestBody @Valid UserDto userDto) {
         try {
             User registered = authService.register(userDto);
             return new ResponseEntity<String>("Successfully registered user " + registered.getUsername(), HttpStatus.CREATED);
@@ -34,7 +34,8 @@ public class LoginController {
     }
 
     @PostMapping("login")
-    public void login(@RequestBody LoginCredentials credentials) {}
+    public void login(@RequestBody LoginCredentials credentials) {
+    }
 
     @PostMapping(value = "forgot")
     public User resetPassword(@RequestBody UserDto user) {

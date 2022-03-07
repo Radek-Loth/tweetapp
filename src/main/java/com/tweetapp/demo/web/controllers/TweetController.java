@@ -16,12 +16,12 @@ public class TweetController {
     private AuthService authService;
 
     @Autowired
-    public void setAuthService(AuthService authService){
+    public void setAuthService(AuthService authService) {
         this.authService = authService;
     }
 
     @Autowired
-    public void setTweetService(TweetService tweetService){
+    public void setTweetService(TweetService tweetService) {
         this.tweetService = tweetService;
     }
 
@@ -41,22 +41,22 @@ public class TweetController {
     }
 
     @PutMapping("update/{id}")
-    public Tweet updateTweet(@PathVariable String id, @RequestBody Tweet tweet){
+    public Tweet updateTweet(@PathVariable String id, @RequestBody Tweet tweet) {
         return tweetService.updateTweet(id, tweet);
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteTweet(@PathVariable String id){
+    public void deleteTweet(@PathVariable String id) {
         tweetService.deleteTweet(id);
     }
 
     @PutMapping("like/{id}")
-    public void likeTweet(@PathVariable String id, Principal principal){
+    public void likeTweet(@PathVariable String id, Principal principal) {
         tweetService.likeTweet(id, principal);
     }
 
     @PostMapping("reply/{id}")
-    public Tweet replyTweet(@PathVariable String id){
+    public Tweet replyTweet(@PathVariable String id) {
         throw new IllegalArgumentException("Not implemented yet");
     }
 

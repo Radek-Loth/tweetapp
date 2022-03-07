@@ -5,7 +5,6 @@ import com.tweetapp.demo.repos.UserRepository;
 import com.tweetapp.demo.web.dtos.UserDto;
 import com.tweetapp.demo.web.errors.UserAlreadyExistException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +28,11 @@ public class AuthService {
         return userRepository.findByUsername(email) != null;
     }
 
-    public User register(UserDto dto) throws UserAlreadyExistException{
+    public User register(UserDto dto) throws UserAlreadyExistException {
 
-        if(emailExist(dto.getEmail())){
+        if (emailExist(dto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email address: " + dto.getEmail());
-        }
-        else if(usernameExist(dto.getUsername())){
+        } else if (usernameExist(dto.getUsername())) {
             throw new UserAlreadyExistException("There is an account with that username: " + dto.getUsername());
         }
 
@@ -58,16 +56,15 @@ public class AuthService {
     public User resetPassword(UserDto user) {
         User checkUser = userRepository.findByUsername(user.getUsername());
         if
-        (       checkUser.getUsername().equals(user.getUsername()) &&
+        (checkUser.getUsername().equals(user.getUsername()) &&
                 checkUser.getFirstName().equals(user.getFirstName()) &&
                 checkUser.getLastName().equals(user.getLastName()) &&
                 checkUser.getDateOfBirth().equals(user.getDateOfBirth()) &&
                 checkUser.getIsFemale().equals(user.getIsFemale())
-        ){
+        ) {
             checkUser.setPassword("{bcrypt}" + passwordEncoder.encode(user.getPassword()));
             return userRepository.save(checkUser);
-        }
-        else return null;
+        } else return null;
     }
 
     public List<User> listUsers() {
@@ -83,7 +80,7 @@ public class AuthService {
         return userRepository.findByUsernameLike(username);
     }
 
-    public User getUserByPrincipal(Principal principal){
+    public User getUserByPrincipal(Principal principal) {
         return userRepository.findByUsername(principal.getName());
     }
 }
