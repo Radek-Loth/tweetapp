@@ -37,12 +37,7 @@ public class TweetController {
 
     @PostMapping("add")
     public Tweet addTweet(@RequestBody Tweet tweet, Principal principal) {
-        return tweetService.addTweet(tweet, principal.getName());
-    }
-
-    @PutMapping("update/{id}")
-    public Tweet updateTweet(@PathVariable String id, @RequestBody Tweet tweet) {
-        return tweetService.updateTweet(id, tweet);
+        return tweetService.addTweet(tweet);
     }
 
     @DeleteMapping("delete/{id}")
@@ -55,9 +50,14 @@ public class TweetController {
         tweetService.likeTweet(id, principal);
     }
 
+    @PutMapping("update/{id}")
+    public Tweet updateTweet(@PathVariable String id, @RequestBody Tweet tweet) {
+        return tweetService.updateTweet(id, tweet);
+    }
+
     @PostMapping("reply/{id}")
-    public Tweet replyTweet(@PathVariable String id) {
-        throw new IllegalArgumentException("Not implemented yet");
+    public void replyTweet(@PathVariable("id") String parentId, @RequestBody Tweet reply) {
+        tweetService.replyTweet(parentId, reply);
     }
 
     /*

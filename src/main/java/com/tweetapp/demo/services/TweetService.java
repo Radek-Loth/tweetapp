@@ -1,6 +1,5 @@
 package com.tweetapp.demo.services;
 
-import com.tweetapp.demo.models.Comment;
 import com.tweetapp.demo.models.Tweet;
 import com.tweetapp.demo.models.User;
 import com.tweetapp.demo.repos.TweetRepository;
@@ -24,20 +23,31 @@ public class TweetService {
         return tweetRepository.findAll();
     }
 
-    public Tweet addTweet(Tweet tweet, String username) {
-/*        tweet.setCreated(LocalDateTime.now());
-        tweet.setModified(LocalDateTime.now());
-        tweet.setAuthor(authService.getUserId(username));*/
-
-
-        tweet.setComment(Collections.<Comment>emptyList());
+    public Tweet addTweet(Tweet tweet) {
+        tweet.setReplies(Collections.<Tweet>emptyList());
         tweet.setLikes(Collections.<User>emptyList());
+        tweet.setIsReply(false);
 
         return tweetRepository.save(tweet);
     }
 
+    @Transactional
+    public void replyTweet(String parentId, Tweet reply) {
+
+        reply.setReplies(Collections.<Tweet>emptyList());
+        reply.setLikes(Collections.<User>emptyList());
+        reply.setIsReply(true);
+
+        Tweet edited = tweetRepository.findById(parentId).orElseThrow();
+        List<Tweet> replies = edited.getReplies();
+        Tweet added = tweetRepository.save(reply);
+        replies.add(added);
+        edited.setReplies(replies);
+        tweetRepository.save(edited);
+    }
+
     public List<Tweet> getUserTweets(String id) {
-        return tweetRepository.findAllByAuthor(id);
+        return tweetRepository.findAllByCreatedBy(id);
     }
 
     @Transactional

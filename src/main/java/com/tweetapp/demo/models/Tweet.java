@@ -18,9 +18,9 @@ public class Tweet {
 
     @Id
     private String id;
-    @Field("author")
+    @Field("created_by")
     @CreatedBy
-    private String author;
+    private String createdBy;
     @Field("title")
     private String title;
     @Field("content")
@@ -34,6 +34,9 @@ public class Tweet {
     @Field("likes")
     @DocumentReference(lazy = true)
     private List<User> likes;
-    @Field("comment")
-    private List<Comment> comment;
+    @Field("is_reply")
+    private Boolean isReply;
+    @Field("replies")
+    @DocumentReference(lazy = true)
+    private List<Tweet> replies;
 }

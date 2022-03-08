@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TweetRepository extends MongoRepository<Tweet, String> {
-    List<Tweet> findAllByAuthor(String id);
+    List<Tweet> findAllByCreatedBy(String id);
 }
