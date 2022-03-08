@@ -30,11 +30,6 @@ public class MongoConfig {
         return MongoClients.create(mongoClientSettings);
     }
 
-/*    @Bean
-    public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongo(), "TweetApp");
-    }*/
-
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
         MongoTemplate template = new MongoTemplate(mongo(), "TweetApp");
