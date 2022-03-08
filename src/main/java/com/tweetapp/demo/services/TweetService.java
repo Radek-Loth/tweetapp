@@ -25,10 +25,12 @@ public class TweetService {
     }
 
     public Tweet addTweet(Tweet tweet, String username) {
-        tweet.setCreated(LocalDateTime.now());
+/*        tweet.setCreated(LocalDateTime.now());
         tweet.setModified(LocalDateTime.now());
+        tweet.setAuthor(authService.getUserId(username));*/
+
+
         tweet.setComment(Collections.<Comment>emptyList());
-        tweet.setAuthor(authService.getUserId(username));
         tweet.setLikes(Collections.<User>emptyList());
 
         return tweetRepository.save(tweet);

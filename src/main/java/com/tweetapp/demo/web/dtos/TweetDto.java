@@ -16,5 +16,5 @@ public class TweetDto {
     private String content;
     private List<User> likes;
     private LocalDateTime created;
-    private LocalDateTime edited;
+    private LocalDateTime modified;
 }
