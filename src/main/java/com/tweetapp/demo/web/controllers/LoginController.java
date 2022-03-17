@@ -23,7 +23,7 @@ public class LoginController {
         this.authService = authService;
     }
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "register")
     public ResponseEntity<String> register(@RequestBody @Valid UserDto userDto) {
         try {
             User registered = authService.register(userDto);
